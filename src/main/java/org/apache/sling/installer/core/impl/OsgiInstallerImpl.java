@@ -1308,15 +1308,7 @@ implements OsgiInstaller, ResourceChangeListener, RetryHandler, InfoProvider, Ru
                 key = resourceType + ':' + resourceId;
                 final TaskResource tr = erl.getFirstResource();
                 if ( tr != null ) {
-                    if ( tr.getState() == ResourceState.IGNORED ) {
-                        // if it has been ignored before, we activate it now again!
-                        // but only if it is not a template
-                        if ( tr.getDictionary() == null
-                             || tr.getDictionary().get(InstallableResource.RESOURCE_IS_TEMPLATE) == null ) {
-                            ((RegisteredResourceImpl)tr).setState(ResourceState.INSTALL, null);
-                            this.persistentList.save();
-                        }
-                    } else if ( tr.getState() == ResourceState.UNINSTALLED ) {
+                    if ( tr.getState() == ResourceState.UNINSTALLED ) {
                         // it has already been removed - nothing do to
                     } else {
                         final UpdateHandler handler = findHandler(tr.getScheme());
